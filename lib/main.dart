@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'News',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white70,
+        scaffoldBackgroundColor: Colors.grey.shade400,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey.shade200,
           elevation: 0,

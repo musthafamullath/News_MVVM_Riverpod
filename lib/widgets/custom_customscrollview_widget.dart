@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news/view/show_news_article_details.dart';
 import 'package:news/viewmodel/news_article_list_view_model.dart';
 import 'package:news/widgets/custom_grid_tile_Image_widget.dart';
 import 'package:news/widgets/custom_grid_tile_footer_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomCostomScrollViewWidget extends StatelessWidget {
   const CustomCostomScrollViewWidget({
     super.key,
     required this.listviewModel,
+    required this.loadingState,
   });
 
   final NewsArticleListViewModel listviewModel;
+  final LoadingState loadingState;
+
+  void _showNewsArticleDetails(context, article) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const ShowNewsArticleDetails(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +73,36 @@ class CustomCostomScrollViewWidget extends StatelessWidget {
             childAspectRatio: 1.375,
           ),
           delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              var articles = listviewModel.articles[index];
-              return Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: GridTile(
-                  footer: CustomGridTileFooterWidget(articles: articles),
-                  child: CustomGridTileImageWidget(articles: articles),
-                ),
-              );
+            (_, index) {
+              if (loadingState == LoadingState.searching) {
+                return Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Container(
+                      height: 155,
+                      color: Colors.white,
+                    ),
+                  ),
+                );
+              } else {
+                var articles = listviewModel.articles[index];
+                return Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: GestureDetector(
+                    onTap: () => _showNewsArticleDetails(context, articles),
+                    child: GridTile(
+                      footer: CustomGridTileFooterWidget(articles: articles),
+                      child: CustomGridTileImageWidget(articles: articles),
+                    ),
+                  ),
+                );
+              }
             },
-            childCount: listviewModel.articles.length,
+            childCount: loadingState == LoadingState.searching
+                ? 10 
+                : listviewModel.articles.length,
           ),
         ),
       ],

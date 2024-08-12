@@ -26,9 +26,9 @@ class CustomGridTileImageWidget extends StatelessWidget {
           ),
         ),
       ),
-      placeholder: (context, url) => const Center(
+      placeholder: (context, url) =>  Center(
         child: SpinKitFadingCircle(
-          color: Colors.blueAccent,
+          color: Colors.grey.shade600,
           size: 50.0,
         ),
       ),
