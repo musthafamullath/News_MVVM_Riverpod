@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:news/models/news_article_model.dart';
 
 class NewsArticleViewModel {
@@ -12,6 +13,9 @@ class NewsArticleViewModel {
   String get description => _newsArticleModel.description ?? 'No Description';
   String get url => _newsArticleModel.url ?? 'No URL';
   String get urlToImage => _newsArticleModel.urlToImage ?? 'No Image URL';
-  String get publishedAt => _newsArticleModel.publishedAt ?? 'No Publish Date';
+  String get publishedAt{
+    final dateTime = DateFormat('yyyy-mm-ddTHH:mm:ssZ').parse(_newsArticleModel.publishedAt.toString(),true);
+    return  DateFormat.yMMMMEEEEd('en-us').format(dateTime).toString();
+  }
   String get content => _newsArticleModel.content ?? 'No Content';
 }

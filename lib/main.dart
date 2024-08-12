@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
           titleLarge: GoogleFonts.newsreader(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 32),
         ),
+        iconTheme:const IconThemeData(
+          color: Colors.black,
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),

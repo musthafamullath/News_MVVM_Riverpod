@@ -20,7 +20,7 @@ class CustomCostomScrollViewWidget extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const ShowNewsArticleDetails(),
+        builder: (_) =>  ShowNewsArticleDetails(article: article,),
       ),
     );
   }
