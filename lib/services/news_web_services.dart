@@ -5,30 +5,33 @@ import 'package:news/models/news_article_model.dart';
 import 'package:news/src/constants.dart';
 
 class NewsWebServices {
-  var dio = Dio();
+  final Dio dio = Dio();
 
   Future<List<NewsArticleModel>> fetchToHeadlines() async {
 
     String url = Url.topHeadline();
-    String urlbbc = Url.toHeadlinesSourceBBCNews();
+    String urlBBC = Url.toHeadlinesSourceBBCNews();
     print('Request URL👀: $url');
-    print("🍿$urlbbc");
+    print("🍿$urlBBC");
 
 
     try {
 
-      final response = await dio.get(url);
-      print('Status Code👀👀: ${response.statusCode}');
-      print('Response Data👀👀: ${response.data}');
+      final response = await Future.wait([
+        dio.get(url),
+        dio.get(urlBBC),
+      ]);
+ 
+    final response1 = response[0];
+    final responseBBC = response[1];
+
+      
+      print('Status Code 1👀👀: ${response1.statusCode}');
+      print('Status Code BBC🍿🍿: ${responseBBC.statusCode}'); 
 
 
-      final responseBBC = await dio.get(urlbbc);
-      print("🍿🍿${responseBBC.statusCode}");
-      print("🍿🍿${responseBBC.data}");
-
-
-      if (response.statusCode == 200 && responseBBC.statusCode == 200) {
-        final result1 = response.data;
+      if (response1.statusCode == 200 && responseBBC.statusCode == 200) {
+        final result1 = response1.data;
         print('result1👀👀👀: $result1');
         Iterable newsList1 = result1['articles'];
         print('newsList1👀👀👀$newsList1');
@@ -49,7 +52,7 @@ class NewsWebServices {
 
         
       } else {
-        throw Exception('Failed to get top US news');
+        throw Exception('Failed to get top news from both sources.');
       }
     } catch (e) {
       if (e is DioException) {

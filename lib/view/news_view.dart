@@ -1,32 +1,30 @@
-// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:news/viewmodel/news_article_list_view_model.dart';
 import 'package:news/widgets/custom_customscrollview_widget.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewsView extends StatefulWidget {
+class NewsView extends ConsumerStatefulWidget {
   const NewsView({super.key});
 
   @override
-  State<NewsView> createState() => _NewsViewState();
+  NewsViewState createState() => NewsViewState();
 }
 
-class _NewsViewState extends State<NewsView> {
+class NewsViewState extends ConsumerState<NewsView> {
   @override
   void initState() {
     super.initState();
-    Provider.of<NewsArticleListViewModel>(context, listen: false)
-        .topHeadlines();
+    Future.microtask(() {
+      ref.read(newsArticleListViewModelProvider.notifier).topHeadlines();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var listviewModel = Provider.of<NewsArticleListViewModel>(context);
-    print('👇👇👇👇${listviewModel.articles.length}');
+    final listviewModel = ref.watch(newsArticleListViewModelProvider.notifier);
 
     return Scaffold(
       body: CustomCostomScrollViewWidget(listviewModel: listviewModel),
     );
   }
 }
-

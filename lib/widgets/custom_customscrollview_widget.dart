@@ -17,11 +17,17 @@ class CustomCostomScrollViewWidget extends StatelessWidget {
     return CustomScrollView(
       slivers: [
         SliverAppBar(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(20),
+            ),
+          ),
           backgroundColor: Colors.grey.shade200,
           actions: const <Widget>[
             Icon(
               Icons.more_vert,
-              size: 32,color: Colors.black,
+              size: 32,
+              color: Colors.black,
             ),
           ],
           title: Text(
@@ -34,9 +40,9 @@ class CustomCostomScrollViewWidget extends StatelessWidget {
           expandedHeight: MediaQuery.of(context).size.height * 0.15,
           flexibleSpace: FlexibleSpaceBar(
             titlePadding:
-                const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             title: Text(
-              'All Head Lines From British Broadcasting Corporation (BBC) News',
+              'All Head Lines From British Broadcasting Corporation (BBC) News.',
               style: GoogleFonts.newsreader(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -47,15 +53,21 @@ class CustomCostomScrollViewWidget extends StatelessWidget {
         ),
         SliverGrid(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            childAspectRatio: 1.5,
+            crossAxisSpacing: 5,
+            mainAxisExtent: 155,
+            mainAxisSpacing: 5,
+            crossAxisCount: 2,
+            childAspectRatio: 1.375,
           ),
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               var articles = listviewModel.articles[index];
-              return GridTile(
-                footer: CustomGridTileFooterWidget(articles: articles),
-                child: CustomGridTileImageWidget(articles: articles),
+              return Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: GridTile(
+                  footer: CustomGridTileFooterWidget(articles: articles),
+                  child: CustomGridTileImageWidget(articles: articles),
+                ),
               );
             },
             childCount: listviewModel.articles.length,

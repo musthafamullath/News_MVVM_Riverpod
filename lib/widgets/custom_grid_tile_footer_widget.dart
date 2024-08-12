@@ -13,13 +13,11 @@ class CustomGridTileFooterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-            top: 40, bottom: 0, left: 5, right: 5),
+      margin: const EdgeInsets.only(top: 40, bottom: 0, left: 5, right: 5),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
-          borderRadius: const BorderRadius.vertical(
-              bottom: Radius.circular(20)),
+          borderRadius: const BorderRadius.vertical(bottom: Radius.circular(10)),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -28,7 +26,7 @@ class CustomGridTileFooterWidget extends StatelessWidget {
             style: GoogleFonts.newsreader(
               fontWeight: FontWeight.bold,
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 15,
               wordSpacing: 0.5,
               letterSpacing: 0.3,
             ),

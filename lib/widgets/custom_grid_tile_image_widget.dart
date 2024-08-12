@@ -16,11 +16,9 @@ class CustomGridTileImageWidget extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: articles.urlToImage,
       imageBuilder: (context, imageProvider) => Container(
-        margin: const EdgeInsets.only(
-            top: 10, bottom: 37, left: 5, right: 5),
+        margin: const EdgeInsets.only(top: 0, bottom: 37, left: 5, right: 5),
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(20)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
           image: DecorationImage(
             image: imageProvider,
             fit: BoxFit.cover,
@@ -34,10 +32,8 @@ class CustomGridTileImageWidget extends StatelessWidget {
           size: 50.0,
         ),
       ),
-      errorWidget: (context, url, error) =>
-          const Icon(Icons.error),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
       fit: BoxFit.cover,
     );
   }
 }
-
